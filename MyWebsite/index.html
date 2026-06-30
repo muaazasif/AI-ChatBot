@@ -230,6 +230,7 @@ body {
 	          <li class="nav-item"><a href="#resume-section" class="nav-link"><span>Resume</span></a></li>
 	          <li class="nav-item"><a href="#services-section" class="nav-link"><span>Services</span></a></li>
 	          <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
+	          <li class="nav-item"><a href="#reviews-section" class="nav-link"><span>Reviews</span></a></li>
 	          
 	          <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
 	        </ul>
@@ -643,6 +644,106 @@ body {
     	</div>
     </section>
 
+    <section class="ftco-section" id="reviews-section">
+      <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section text-center ftco-animate">
+            <h2 class="mb-4">Student Reviews</h2>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <form id="reviewForm" class="vip-form p-5 shadow-lg rounded">
+              <div class="form-group">
+                <label class="font-weight-bold">Select School</label>
+                <select class="form-control" name="school" required>
+                  <option value="Escuela Schooling System">Escuela Schooling System</option>
+                  <option value="Tahir Villa">Tahir Villa</option>
+                  <option value="Riphah International College">Riphah International College</option>
+                  <option value="Harmain School System">Harmain School System</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Your Name" name="studentName" required>
+              </div>
+              <div class="form-group">
+                <textarea name="message" class="form-control" rows="4" placeholder="Your Message" required></textarea>
+              </div>
+              <div class="form-group">
+                <label class="font-weight-bold">Rating</label>
+                <div class="star-rating">
+                  <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars">★</label>
+                  <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">★</label>
+                  <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">★</label>
+                  <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">★</label>
+                  <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">★</label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block py-3">Submit Review</button>
+            </form>
+          </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+          <div class="col-md-8" id="reviewsContainer">
+            <!-- Reviews will appear here -->
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <style>
+      #reviews-section { 
+        background: #1a1a2e; /* Dark professional background */
+        padding: 80px 0;
+        color: #fff;
+      }
+      #reviews-section h2 { color: #fff; }
+      
+      .vip-form {
+        background: #16213e !important; /* Darker form background */
+        border: 1px solid #3e64ff !important;
+        border-radius: 20px !important;
+      }
+      .vip-form label { color: #e94560 !important; } /* Accent color */
+      .vip-form .form-control {
+        background: #0f3460 !important;
+        border: none !important;
+        color: #fff !important;
+      }
+      
+      .fire-animation {
+        animation: fire 2s ease-in-out infinite alternate;
+      }
+      @keyframes fire {
+        from { box-shadow: 0 0 10px #ff4500; border-color: #ff4500; }
+        to { box-shadow: 0 0 30px #ff0000, 0 0 50px #ff4500; border-color: #ff0000; }
+      }
+      .review-card {
+        padding: 30px;
+        margin-bottom: 25px;
+        border-radius: 20px;
+        background: #0f3460 !important;
+        border-left: 10px solid #e94560 !important;
+        transition: all 0.4s;
+        color: #ddd;
+      }
+      .review-card:hover { transform: translateY(-10px); }
+      
+      /* Star Rating Styles */
+      .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-start;
+        font-size: 2.5rem;
+        cursor: pointer;
+      }
+      .star-rating input { display: none; }
+      .star-rating label { color: #555; cursor: pointer; transition: 0.3s; }
+      .star-rating input:checked ~ label,
+      .star-rating label:hover,
+      .star-rating label:hover ~ label { color: #ffc107; text-shadow: 0 0 10px #ffc107; }
+    </style>
+
     <section class="ftco-section" id="services-section">
     	<div class="container-fluid px-md-5">
     		<div class="row justify-content-center py-5 mt-5">
@@ -1025,6 +1126,67 @@ body {
   <script src="js/scrollax.min.js"></script>
   
   <script src="js/main.js"></script>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+  <script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBOvhRCf3wZMh6P9SN7T5gcEaY3nUwwnZI",
+      authDomain: "muaazasif-4cf8e.firebaseapp.com",
+      databaseURL: "https://muaazasif-4cf8e-default-rtdb.firebaseio.com",
+      projectId: "muaazasif-4cf8e",
+      storageBucket: "muaazasif-4cf8e.firebasestorage.app",
+      messagingSenderId: "219552607371",
+      appId: "1:219552607371:web:9ed829230017f0777cf88e",
+      measurementId: "G-8X6979PSG7"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Submit Review
+    const reviewForm = document.getElementById('reviewForm');
+    const reviewsContainer = document.getElementById('reviewsContainer');
+
+    reviewForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(reviewForm);
+        const review = {
+            school: formData.get('school'),
+            name: formData.get('studentName'),
+            message: formData.get('message'),
+            rating: formData.get('rating'),
+            timestamp: firebase.database.ServerValue.TIMESTAMP
+        };
+
+        db.ref('reviews').push(review);
+        alert('Review submitted successfully!');
+        reviewForm.reset();
+    });
+
+    // Fetch and Display Reviews
+    db.ref('reviews').on('child_added', (snapshot) => {
+        const rev = snapshot.val();
+        const card = document.createElement('div');
+        
+        card.className = 'review-card fire-animation'; 
+        
+        let stars = '⭐'.repeat(rev.rating);
+        
+        card.innerHTML = `
+            <h3 style="color:#fff;">${rev.name}</h3>
+            <p><strong>School:</strong> ${rev.school}</p>
+            <p>${rev.message}</p>
+            <div style="color:#ffc107;">Rating: ${stars}</div>
+        `;
+        reviewsContainer.prepend(card);
+    });
+  </script>
 
   </body>
 </html>
