@@ -1151,6 +1151,7 @@ body {
         });
 
         if (error) {
+            console.error('Submission error:', error);
             alert('Error submitting review: ' + error.message);
         } else {
             alert('Review submitted successfully!');
@@ -1169,20 +1170,22 @@ body {
         }
 
         reviewsContainer.innerHTML = '';
-        data.forEach(rev => {
-            const card = document.createElement('div');
-            card.className = 'review-card fire-animation'; 
-            
-            let stars = '⭐'.repeat(rev.rating || 0);
-            
-            card.innerHTML = `
-                <h3 style="color:#fff;">${rev.name}</h3>
-                <p><strong>School:</strong> ${rev.school}</p>
-                <p>${rev.message}</p>
-                <div style="color:#ffc107;">Rating: ${stars}</div>
-            `;
-            reviewsContainer.appendChild(card);
-        });
+        if (data) {
+            data.forEach(rev => {
+                const card = document.createElement('div');
+                card.className = 'review-card fire-animation'; 
+                
+                let stars = '⭐'.repeat(rev.rating || 0);
+                
+                card.innerHTML = `
+                    <h3 style="color:#fff;">${rev.name}</h3>
+                    <p><strong>School:</strong> ${rev.school}</p>
+                    <p>${rev.message}</p>
+                    <div style="color:#ffc107;">Rating: ${stars}</div>
+                `;
+                reviewsContainer.appendChild(card);
+            });
+        }
     }
 
     // Initial fetch
